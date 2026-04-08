@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Me 🐰 | Made by kids for kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --periwinkle: #a1b6f7;
+            --cream: #fefdf4;
+            --rose: #ffb7ce;
+            --sand: #c69c6d;
+            --mint: #b9fbc0;
+            --bg: var(--periwinkle);
+            --text: var(--sand);
+            --card-bg: var(--cream);
+            --border: #ffffff;
+        }
+
+        body.dark-mode {
+            --periwinkle: #2c3e50;
+            --cream: #34495e;
+            --rose: #e84393;
+            --sand: #dfe6e9;
+            --mint: #00b894;
+            --bg: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d3436;
+            --border: #444;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: 0.3s ease;
+        }
+
+        nav {
+            background-color: var(--card-bg);
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid var(--rose);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-font { font-family: 'Outfit', sans-serif; color: var(--rose); font-size: 1.5rem; text-transform: lowercase; font-weight: 700; }
+
+        .nav-links { display: flex; gap: 10px; align-items: center; }
+        .nav-btn {
+            background: none; border: none;
+            color: var(--text); padding: 8px 12px;
+            border-radius: 20px; cursor: pointer;
+            font-family: 'Fredoka', sans-serif; font-weight: 600;
+        }
+        .nav-btn.active { background-color: var(--rose); color: white; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .mission-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 30px;
+            border: 3px dashed var(--rose);
+            text-align: center;
+        }
+        .joy-banner { color: var(--rose); font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; }
+
+        .bundle-box {
+            background: var(--mint);
+            color: #2d3436;
+            padding: 25px;
+            border-radius: 40px;
+            margin-bottom: 30px;
+            border: 4px solid var(--border);
+            text-align: center;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+        .card {
+            background: var(--card-bg); padding: 25px; border-radius: 35px;
+            box-shadow: 0 8px 0 var(--rose); border: 2px solid var(--border);
+            text-align: center; transition: 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .price-tag { font-weight: bold; color: var(--rose); font-size: 1.2rem; }
+
+        .btn {
+            background: var(--rose); color: white; padding: 10px;
+            border-radius: 25px; border: 2px solid white; cursor: pointer;
+            font-weight: 600; width: 100%; margin-top: 10px;
+        }
+        .btn-bundle { background: var(--sand); color: white; }
+        .btn-save { background: var(--periwinkle); color: white; font-size: 0.8rem; }
+
+        footer { padding: 40px; text-align: center; font-size: 0.9rem; border-top: 2px solid rgba(255,255,255,0.1); margin-top: 50px; }
+        .school-logo { width: 180px; margin-top: 15px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo-font">hello me 🐰</div>
+    <div class="nav-links">
+        <select id="currency" onchange="updateUI()" style="border-radius: 10px; padding: 5px; cursor: pointer;">
+            <option value="USD">USD ($)</option>
+            <option value="NGN">NGN (₦)</option>
+        </select>
+        <button class="nav-btn" onclick="toggleDarkMode()">🌓 Mode</button>
+        <button class="nav-btn active" onclick="showPage('shop', this)">Shop</button>
+        <button class="nav-btn" onclick="showPage('cart-page', this)">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div id="shop" class="page active">
+        
+        <div class="mission-section">
+            <div class="joy-banner">100% Handmade Joy ✨</div>
+            <p>Every stitch and bead is placed by hand with love.</p>
+            <hr style="width: 40%; opacity: 0.2; margin: 20px auto;">
+            <h3 style="color: var(--rose);">Our Mission 🌸</h3>
+            <p>At Hello Me, we believe in the magic of the little things that make a difference. Our mission is to spread happiness and calmness through our creations. Every item is crafted to help you fidget, smile, and be yourself!</p>
+            <p style="font-weight: 600; margin-top: 15px; color: var(--rose);">"Made by kids for kids"</p>
+        </div>
+
+        <div class="grid" id="product-grid"></div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 40px;">
+            <h2 style="color: var(--rose);">As Seen On</h2>
+            <img src="school-logo.png" alt="Greensprings School Lagos" class="school-logo">
+            <p style="font-weight: 600; margin-top: 10px;">Greensprings School Lagos</p>
+        </div>
+    </div>
+
+    <div id="cart-page" class="page">
+        <div class="card" style="text-align: left; max-width: 600px; margin: 0 auto;">
+            <h2>Your Shopping Bag 🛒🛍️</h2>
+            <div id="cart-list">Your bag is empty.</div>
+            <hr style="margin: 20px 0; opacity: 0.2;">
+            <h2 style="text-align: right;">Total: <span id="total-price">$0.00</span></h2>
+            <button class="btn" onclick="alert('Ready for checkout!')">Complete Order</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><strong>Est. 2024 | Hello Me 🐰</strong></p>
+    <p style="margin: 10px 0;">"Made by kids for kids"</p>
+    <p style="opacity: 0.6;">&copy; 2026 Hello Me Brand. All Rights Reserved.</p>
+</footer>
+
+<script>
+    const exchangeRate = 1500;
+    let cart = [];
+    let bundle = [];
+
+    // NEW CHEAP PRICES
+    const products = [
+        { id: 1, name: "Crochet Plushie", price: 3, emoji: "🐰" },
+        { id: 2, name: "Stress Ball", price: 0.1, emoji: "🎱" },
+        { id: 3, name: "Beaded Friendship Bracelet", price: 1.45, emoji: "📿" },
+        { id: 4, name: "Beaded Necklace", price: 1.50, emoji: "📿" },
+        { id: 5, name: "Crochet Bookmark", price: 1.45, emoji: "🔖" },
+    ];
+
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+    
+    function showPage(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if(btn) btn.classList.add('active');
+    }
+
+    function formatPrice(amt) {
+        const curr = document.getElementById('currency').value;
+        return curr === 'NGN' ? "₦" + (amt * exchangeRate).toLocaleString() : "$" + amt.toFixed(2);
+    }
+
+    function updateUI() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = products.map(p => `
+            <div class="card">
+                <div style="font-size:45px; margin-bottom: 10px;">${p.emoji}</div>
+                <h3>${p.name}</h3>
+                <p class="price-tag">${formatPrice(p.price)}</p>
+                <button class="btn" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+            </div>
+        `).join('');
+        updateCartDisplay();
+    }
+
+    function addToCart(name, price) {
+        cart.push({name, price});
+        updateCartDisplay();
+        alert(name + " added!");
+    }
+
+    }
+
+    }
+
+    function updateCartDisplay() {
+        document.getElementById('cart-count').innerText = cart.length;
+        const list = document.getElementById('cart-list');
+        list.innerHTML = cart.length ? cart.map(i => `<div>✨ ${i.name} - ${formatPrice(i.price)}</div>`).join('') : "Your bag is empty.";
+        const total = cart.reduce((sum, i) => sum + i.price, 0);
+        document.getElementById('total-price').innerText = formatPrice(total);
+    }
+
+    updateUI();
+</script>
+
+</body>
+</html>
